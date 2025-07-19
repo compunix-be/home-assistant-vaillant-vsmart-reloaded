@@ -16,8 +16,7 @@ from .entity import VaillantCoordinator, VaillantDeviceEntity, VaillantProgramEn
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
-_HOME_ID = ""
-_HWB_ID = ""
+_HOME_ID = ""  # <-- Fill with your Home ID
 
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_devices: AddEntitiesCallback
@@ -125,7 +124,7 @@ class VaillantHwbSwitch(VaillantDeviceEntity, SwitchEntity):
         try:
             await self._client.async_set_state_module(
                 _HOME_ID,
-                _HWB_ID,
+                self._device_id,
                 SetpointMode.HWB,
                 True,
                 setpoint_endtime=endtime,
@@ -141,7 +140,7 @@ class VaillantHwbSwitch(VaillantDeviceEntity, SwitchEntity):
         try:
             await self._client.async_set_state_module(
                 _HOME_ID,
-                _HWB_ID,
+                self._device_id,
                 SetpointMode.HWB,
                 False,
             )
